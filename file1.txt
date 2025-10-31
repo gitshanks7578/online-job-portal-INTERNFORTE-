@@ -4,6 +4,17 @@ add content to file 1
 
 branching and conflicts
 
+git add . -> adds all files
+git add file1.txt file2.txt ->multiple files
+
+-------takes us to staging area
+
+git commmit -m "message"
+
+--------commits
+
+
+
 git branch -> gives list of branches
 git branch "name" -> makes a new branch 
 
