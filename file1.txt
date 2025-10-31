@@ -6,6 +6,9 @@ add content to file 1
     git add . -> adds all files
     git add file1.txt file2.txt ->multiple files
 
+    git merge TEST1 -> this can merge the paralle working in a differnt braanch to our main branch say we fixed a  bug
+
+
     -------takes us to staging area
 
     git commmit -m "message"
@@ -17,7 +20,9 @@ BRANCHING AND CONFLICTS
     git branch -> gives list of branches
     git branch "name" -> makes a new branch 
 
-    git switch "name" -> switches to that branch
+    git switch "name" -> switches to that 
+    
+    git switch -c "name"  -> will switch if exist ,if no ,THEN CREATE AND THEN switch to that branch
 
 HOW BRANCHING WORKS
     say u have main branch with all your code
