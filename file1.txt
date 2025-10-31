@@ -1,3 +1,11 @@
 this is file 1 for understanding git
 
 add content to file 1
+
+branching and conflicts
+
+git branch -> gives list of branches
+git branch "name" -> makes a new branch 
+
+git switch "name" -> switches to that branch
+
