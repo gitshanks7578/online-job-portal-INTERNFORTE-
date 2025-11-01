@@ -81,3 +81,27 @@ export const deleteUser = async (req,res)=>{
          return res.status(500).json({ message: "server error", success: false });
     }
 }
+
+export const registerUser = async (req,res)=>{
+  try {
+    const {name,email,password} = req.body
+
+    if(!name || !email || !password) return res.status(400).json({message : "all fields are required",success:false})
+    const existingUser = await user.findOne({email})
+    if(existingUser) return res.status(400).json({message : "user already exists",success:false})
+    
+    // const newUser = new user({name,email,password})
+    // const savedUser = await newUser.save()
+    const newUser = await user.create({name,email,password})
+    if(!newUser){
+       return res.status(500).json({message : "something went wrong while saving user",success:false})
+    }
+    else{
+      return res.status(200).json({success:true,newUser})
+    }
+
+  } catch (error) {
+    return res.status(500).json({message : error.message,success:false})
+  }
+}
+
