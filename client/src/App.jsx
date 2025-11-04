@@ -1,8 +1,8 @@
 import React from 'react'
-
+import LoginForm from "./components/Login.jsx"
 function App() {
   return (
-    <div className='text-blue-700'>App</div>
+   <LoginForm/>
   )
 }
 
