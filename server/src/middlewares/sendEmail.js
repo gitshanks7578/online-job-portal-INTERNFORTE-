@@ -6,13 +6,13 @@ export const sendEmail = async(req,res)=>{
         if(!email) return res.status(400).json({message : "need email to change password",success:false})
         const finduser = await user.findOne({email}).select("-password")
         if(!finduser) return res.status(404).json({message:"finduser doesnt exist/sendEmail func/"})
-        if(finduser.verificationCodeExpiresIn < Date.now()){
+        if(finduser.verificationCodeExpiresIn < Date.now() || !finduser.verificationToken){
             finduser.verificationToken = Math.floor(100000 + Math.random() * 900000);
             finduser.verificationCodeExpiresIn = Date.now() + 10 * 60 * 1000;
         }
         await finduser.save()
         //email function caller with argument finduser.email
-        await sendVerificationEmail(email)
+        // await sendVerificationEmail(email)
         return res.status(200).json({message:"email sent successfully",success:true})
 
         

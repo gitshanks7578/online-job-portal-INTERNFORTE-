@@ -35,3 +35,12 @@ export const verifyJwt = async (req,res,next)=>{
         return res.status(500).json({message : "verifyjwt middleware failed",success:false})
     }
 }
+
+export const verifyRole = (roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.User.role)) {
+      return res.status(403).json({ message: "Forbidden: insufficient permissions", success: false });
+    }
+    next();
+  };
+};
