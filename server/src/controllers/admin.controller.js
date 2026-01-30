@@ -145,23 +145,7 @@ export const updateJobStatus = async (req, res) => {
 };
 
 
-//applications
 
-
-
-// export const getApplicationsByJob = async (req, res) => {
-//   try {
-//     const { jobId } = req.params;
-
-//     const applications = await Application.find({ jobId });
-
-//     res.status(200).json(applications);
-//   } catch (error) {
-//     res.status(400).json({
-//       error: "Failed to fetch applications"
-//     });
-//   }
-// };
 export const getApplicationsByJob = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -213,19 +197,7 @@ export const updateApplicationStatus = async (req, res) => {
   }
 };
 
-// export const getAdminProfile = async (req, res) => {
-//   try {
-//     const userId = req.User._id;
 
-//     const currentUser = await user.findById(userId).select("-password -refreshToken");
-
-//     if (!currentUser) return res.status(404).json({ message: "User not found" });
-
-//     res.status(200).json(currentUser);
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to fetch profile" });
-//   }
-// };
 export const getAdminProfile = async (req, res) => {
   try {
     const userId = req.User._id;
@@ -244,10 +216,7 @@ export const getAdminProfile = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch profile" });
   }
 };
-/**
- * Update logged-in user profile
- * PUT /users/profile
- */
+
 export const updateAdminProfile = async (req, res) => {
   try {
     const userId = req.User._id;

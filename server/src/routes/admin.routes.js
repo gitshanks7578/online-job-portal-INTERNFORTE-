@@ -14,23 +14,18 @@ import {
 
 const adminrouter = express.Router();
 
-/**
- * JOB ROUTES
- */
-adminrouter.post("/jobs", createJob);                  // Create a job
-adminrouter.get("/jobs", getAllJobs);                 // Get all jobs
-adminrouter.get("/jobs/:jobId", getJobById);         // Get single job by ID
-adminrouter.put("/jobs/:jobId", updateJob);          // Update job
-adminrouter.delete("/jobs/:jobId", deleteJob);       // Delete job
-adminrouter.patch("/jobs/:jobId/status", updateJobStatus); // Update job status
+adminrouter.post("/jobs", createJob);                 
+adminrouter.get("/jobs", getAllJobs);              
+adminrouter.get("/jobs/:jobId", getJobById);      
+adminrouter.put("/jobs/:jobId", updateJob);       
+adminrouter.delete("/jobs/:jobId", deleteJob);      
+adminrouter.patch("/jobs/:jobId/status", updateJobStatus); 
 
-/**
- * APPLICATION ROUTES
- */
-adminrouter.get("/jobs/:jobId/applications", getApplicationsByJob); // Get all applications for a job
-adminrouter.patch("/applications/:applicationId/status", updateApplicationStatus); // Update application status
 
-adminrouter.get("/profile", getAdminProfile);        // View own profile
+adminrouter.get("/jobs/:jobId/applications", getApplicationsByJob); 
+adminrouter.patch("/applications/:applicationId/status", updateApplicationStatus);
+
+adminrouter.get("/profile", getAdminProfile);       
 adminrouter.put("/profile", updateAdminProfile);
 
 export default adminrouter;

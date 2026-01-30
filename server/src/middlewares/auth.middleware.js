@@ -2,23 +2,10 @@
 import {user} from "../models/user.model.js"
 import jwt from "jsonwebtoken"
 
+//notes
 //ACCESS TOKENS are saved into cookies or headers
 //while REFRESH TOKENS are saved into the database
-// export const verifyJwt = async(req,res,next)=>{
-//     try {
-//         const token = req?.cookies.accesstoken || req.header("authorization")?.replace("Bearer ","")
-//         if(!token) throw new Error("401 unauthorized")
-//         const decoded_token =  jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
-//         const existing_user  = await user.findById(decoded_token._id).select("-password -refreshToken")
-//         if(!existing_user) throw new Error("invalid token 401")
-            
-//             //attaching a custom property to request object
-//             req.User = existing_user
-//             next()
-//     } catch (error) {
-//         return res.status(500).json({message : "verifyjwt middleware failed",success : false})
-//     }
-// }
+
 
 
 export const verifyJwt = async (req,res,next)=>{

@@ -3,10 +3,7 @@ import { Job } from "../models/job.model.js";
 import { Application } from "../models/application.model.js";
 import { user } from "../models/user.model.js";
 
-/**
- * Get all jobs with optional search & filters
- * GET /users/jobs?keyword=&location=&jobType=
- */
+
 export const getAllJobs = async (req, res) => {
   try {
     const { keyword, location, jobType } = req.query;
@@ -25,10 +22,7 @@ export const getAllJobs = async (req, res) => {
   }
 };
 
-/**
- * Get single job by ID
- * GET /users/jobs/:jobId
- */
+
 export const getJobById = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -43,11 +37,7 @@ export const getJobById = async (req, res) => {
   }
 };
 
-/**
- * Apply for a job
- * POST /users/jobs/:jobId/apply
- * req.body can contain optional fields like resumeUrl
- */
+
 export const applyForJob = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -81,10 +71,7 @@ export const applyForJob = async (req, res) => {
   }
 };
 
-/**
- * Get all applications of logged-in user
- * GET /users/applications
- */
+
 export const getMyApplications = async (req, res) => {
   try {
     const userId = req.User._id; // assume verifyToken middleware sets req.user
@@ -99,10 +86,7 @@ export const getMyApplications = async (req, res) => {
   }
 };
 
-/**
- * Get logged-in user profile
- * GET /users/profile
- */
+
 export const getUserProfile = async (req, res) => {
   try {
     const userId = req.User._id;
@@ -117,10 +101,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-/**
- * Update logged-in user profile
- * PUT /users/profile
- */
+
 export const updateUserProfile = async (req, res) => {
   try {
     const userId = req.User._id;

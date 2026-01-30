@@ -1,7 +1,8 @@
 # Node modules
 client/node_modules/
 server/node_modules/
-
+server/src/controllers/(IGNORE)a.drawio
+server/src/controllers/(IGNORE)array_user.js
 # Environment files
 client/.env
 server/.env

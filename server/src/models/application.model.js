@@ -12,13 +12,8 @@ const applicationSchema = new mongoose.Schema(
       ref: "user", 
       required: true
     },
-    // resume: {
-    //   type: String, 
-    // },
     status: {
       type: String,
-      // enum: ["applied", "shortlisted", "rejected", "hired"],
-      // default: "applied"
       enum:["accepted","rejected","pending"],
       default:"pending",
     }

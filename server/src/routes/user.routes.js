@@ -1,4 +1,3 @@
-// routes/user.routes.js
 import express from "express";
 import {
   getAllJobs,
@@ -12,15 +11,15 @@ import {
 const userrouter = express.Router();
 
 // Jobs
-userrouter.get("/jobs", getAllJobs);           // List all jobs with optional filters
-userrouter.get("/jobs/:jobId", getJobById);   // Get single job details
+userrouter.get("/jobs", getAllJobs);          
+userrouter.get("/jobs/:jobId", getJobById);  
 
 // Applications
-userrouter.post("/jobs/:jobId/apply", applyForJob); // Apply for a job
-userrouter.get("/applications", getMyApplications); // Get own applications
+userrouter.post("/jobs/:jobId/apply", applyForJob); 
+userrouter.get("/applications", getMyApplications); 
 
 // User Profile
-userrouter.get("/profile", getUserProfile);        // View own profile
-userrouter.put("/profile", updateUserProfile);     // Update profile
+userrouter.get("/profile", getUserProfile);       
+userrouter.put("/profile", updateUserProfile);     
 
 export default userrouter;

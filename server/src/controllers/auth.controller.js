@@ -432,7 +432,7 @@ import { user } from "../models/user.model.js";
 import { deleteUserAndData } from "../utils/deleteUserAndData.js";
 import { sendVerificationEmail } from "../utils/mailtrap/emails.js";
 
-// =================== HELPER FUNCTION ===================
+//just a helper function to generate both access and refresh tokens all together
 const generateAccessAndRefreshTokens = async (userid) => {
   let checkuser, refreshToken, accessToken;
   try {
@@ -451,7 +451,7 @@ const generateAccessAndRefreshTokens = async (userid) => {
   return { accessToken, refreshToken };
 };
 
-// =================== REGISTER USER / ADMIN ===================
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -491,7 +491,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// =================== LOGIN ===================
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -529,7 +529,7 @@ export const login = async (req, res) => {
   }
 };
 
-// =================== LOGOUT ===================
+
 export const logout = async (req, res) => {
   try {
     const logout_user = await user.findByIdAndUpdate(
@@ -559,7 +559,7 @@ export const logout = async (req, res) => {
   }
 };
 
-// =================== VERIFY EMAIL ===================
+//the email verification feature is not fully completed and is under work
 export const verify_email = async (req, res) => {
   try {
     const { email, token } = req.body;
@@ -590,7 +590,7 @@ export const verify_email = async (req, res) => {
   }
 };
 
-// =================== FORGOT PASSWORD ===================
+
 export const forgetPassword = async (req, res) => {
   try {
     const { email, newPassword, confirmPassword } = req.body;
@@ -615,7 +615,7 @@ export const forgetPassword = async (req, res) => {
   }
 };
 
-// =================== DELETE USER ===================
+
 export const removeUser = async (req, res) => {
   try {
     const user_for_deletion = await deleteUserAndData(req.User._id);
@@ -635,7 +635,7 @@ export const removeUser = async (req, res) => {
   }
 };
 
-// =================== DUMMY POST ===================
+//dummy
 export const post = async (req, res) => {
   return res.status(200).json({ message: "posts" });
 };

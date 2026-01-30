@@ -14,7 +14,7 @@ const dbConnect = async (req,res)=>{
 
 export default dbConnect
 
-
+//MY PERSONAL NOTES - you may ignore
 // we use connectionInstance to store an object for debugging (SKIPABLE)
 
 // connectionInstance.connection.readyState // 0 = disconnected, 1 = connected, etc.
