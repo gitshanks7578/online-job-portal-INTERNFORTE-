@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const dbConnect = async (req,res)=>{
     try {
-        const connetionInstance = await mongoose.connect(`${process.env.COMPASS_URI}`)
+        const connetionInstance = await mongoose.connect(`${process.env.MONGODB_URI}`)
         console.log("\nDB connected\n")
     } catch (error) {
         
