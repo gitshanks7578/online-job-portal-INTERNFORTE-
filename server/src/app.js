@@ -6,7 +6,8 @@ import cookieParser from "cookie-parser";
 import authrouter from "./routes/auth.routes.js";
 import adminrouter from "./routes/admin.routes.js";
 import userrouter from "./routes/user.routes.js";
-
+import path from "path";
+import { fileURLToPath } from "url";
 import { verifyJwt,verifyRole } from "./middlewares/auth.middleware.js";
 
 import { fileURLToPath } from "url";
