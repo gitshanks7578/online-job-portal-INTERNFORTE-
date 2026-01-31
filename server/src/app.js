@@ -9,24 +9,26 @@ import userrouter from "./routes/user.routes.js";
 
 import { verifyJwt,verifyRole } from "./middlewares/auth.middleware.js";
 
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.set("trust proxy", 1);
 app.use(
   cors({
     origin:[
-       "http://localhost:5173",
        "https://online-job-portal-internforte-1.onrender.com"
     ],
  // frontend origin
     credentials: true,               // allow cookies
   })
 );
-
+app.options("*", cors());
 app.use(cookieParser());
 
 //test route
@@ -45,4 +47,10 @@ app.use("/api/v1/admin", verifyJwt, verifyRole(["admin"]), adminrouter);
 
 app.use("/api/v1/user", verifyJwt, verifyRole(["user"]), userrouter);
 
+
+app.use(express.static(path.join(__dirname, "../../client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
+});
 export default app;
