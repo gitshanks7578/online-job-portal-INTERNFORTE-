@@ -18,7 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend origin
+    origin:[
+       "http://localhost:5173",
+       "https://online-job-portal-internforte-1.onrender.com"
+    ],
+ // frontend origin
     credentials: true,               // allow cookies
   })
 );
