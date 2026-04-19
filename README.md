@@ -9,8 +9,8 @@ Full-stack job portal with role-based access.
 
 ## Live
 
-* Frontend: https://online-job-portal-internforte-1-client.onrender.com
-* API: https://online-job-portal-internforte-1-server.onrender.com/signup
+* Frontend: https://online-job-portal-internforte-1-client.onrender.com/signup
+* API: https://online-job-portal-internforte-1-server.onrender.com/
 
 ---
 
