@@ -15,7 +15,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_AXIOS_BASE_URL}/login`,
+        `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/login`,
         { email, password },
         { withCredentials: true } 
       );

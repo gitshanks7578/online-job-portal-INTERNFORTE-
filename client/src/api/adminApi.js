@@ -3,7 +3,7 @@
 import axios from "axios";
 
 const adminApi = axios.create({
-  baseURL: `${import.meta.env.VITE_AXIOS_MAIN_BASE_URL}/admin`,
+  baseURL: `${import.meta.env.VITE_AXIOS_BASE_URL}/admin`,
   withCredentials: true,
 });
 

@@ -9,7 +9,7 @@ function Dashboard() {
   const handleLogout = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_AXIOS_BASE_URL}/logout`,
+        `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/logout`,
         {},
         { withCredentials: true }
       );
@@ -25,7 +25,7 @@ function Dashboard() {
   const handleDelete = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_AXIOS_BASE_URL}/removeUser`,{},
+        `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/removeUser`,{},
         { withCredentials: true }
       );
       if (res.data.success) {

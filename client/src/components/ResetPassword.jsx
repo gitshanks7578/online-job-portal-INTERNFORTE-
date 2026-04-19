@@ -13,7 +13,7 @@ function ResetPassword() {
       return;
     }
      try {
-     const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/forgetPassword/reset`,{
+     const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/auth/forgetPassword/reset`,{
       email,
       newPassword,
       confirmPassword

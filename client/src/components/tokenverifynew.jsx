@@ -26,7 +26,7 @@ const [email, setEmail] = useState("");
     const token = Number(otp.join(""));
    
    try {
-     const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/forgetPassword/verify`,{
+     const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/auth/forgetPassword/verify`,{
         email,
         token
     })

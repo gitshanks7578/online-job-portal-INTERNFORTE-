@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const userApi = axios.create({
-  baseURL: `${import.meta.env.VITE_AXIOS_MAIN_BASE_URL}/user`,
+  baseURL: `${import.meta.env.VITE_AXIOS_BASE_URL}/user`,
   withCredentials: true,
 });
 

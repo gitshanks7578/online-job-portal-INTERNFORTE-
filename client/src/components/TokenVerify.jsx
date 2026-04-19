@@ -9,7 +9,7 @@ function TokenVerify() {
   const [email, setEmail] = useState("");
   const handleSubmit =async(e) => {
     e.preventDefault();
-    const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/forgetPassword/send`,{
+    const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/auth/forgetPassword/send`,{
       email
     })
 

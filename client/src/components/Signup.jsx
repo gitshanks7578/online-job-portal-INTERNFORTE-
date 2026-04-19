@@ -143,7 +143,7 @@ function Signup() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_AXIOS_BASE_URL}/register`,
+        `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/register`,
         { name, email, password, role },
         {
           withCredentials: true,
