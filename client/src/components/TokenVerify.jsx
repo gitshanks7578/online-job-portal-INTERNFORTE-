@@ -9,9 +9,7 @@ function TokenVerify() {
   const [email, setEmail] = useState("");
   const handleSubmit =async(e) => {
     e.preventDefault();
-    const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/auth/forgetPassword/send`,{
-      email
-    })
+    const res = await axios.post(`${import.meta.env.VITE_AXIOS_BASE_URL}/auth/forgetPassword/send`,{email})
 
     if(res.data.success){
 
@@ -35,7 +33,7 @@ function TokenVerify() {
         <div className="bg-zinc-800 rounded-xl w-[25%] h-max shadow-xl">
           <h1 className="text-zinc-300 text-4xl pt-5 mx-5">Verify email</h1>
           <p className="mx-5 mt-2 text-xs text-zinc-400">
-            Enter your email and the 6-digit verification code
+            Enter your email to recieve 6 digit code
           </p>
 
           <form

@@ -63,12 +63,7 @@ function Dashboard() {
         </div>
       </header>
 
-      {/* Center content */}
-      <main className="flex flex-1 items-center justify-center">
-        <p className="text-zinc-500 text-lg sm:text-xl">
-          Welcome back to NEXORA
-        </p>
-      </main>
+      
 
       {/* Confirmation Modal */}
       {showConfirm && (

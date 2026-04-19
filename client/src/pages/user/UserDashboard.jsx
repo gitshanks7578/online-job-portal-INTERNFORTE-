@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import userApi from "../../api/userApi";
+import Dashboard from "../../components/Dashboard";
 
 function UserDashboard() {
   const [jobs, setJobs] = useState([]);
@@ -73,6 +74,7 @@ function UserDashboard() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white p-6">
       {/* Header */}
+      <Dashboard/>
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">User Dashboard</h1>
         <a href="/user/profile" className="text-red-500 underline">

@@ -96,6 +96,13 @@ function Login() {
         >
           new here? register now
         </span>
+        <br />
+         <span
+          onClick={() => navigate("/verify")}
+          className="text-xs cursor-pointer text-red-500 hover:text-red-700"
+        >
+          forgot password?
+        </span>
       </div>
     </div>
   );
