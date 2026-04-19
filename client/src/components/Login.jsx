@@ -17,7 +17,7 @@ function Login() {
       const res = await axios.post(
         `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/login`,
         { email, password },
-        { withCredentials: true } 
+        { withCredentials: true }
       );
 
       if (!res.data.success) {
@@ -25,9 +25,16 @@ function Login() {
         return;
       }
 
-      const { loggedInUser, accessToken } = res.data;
+      // const { loggedInUser, accessToken } = res.data;
+      const { loggedInUser, tokens } = res.data;
+      const accessToken = tokens?.accessToken;
 
-      
+      if (!loggedInUser || !accessToken) {
+        console.log(" Missing data:", res.data);
+        alert("Login failed: invalid response");
+        return;
+      }
+
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("role", loggedInUser.role);
 
@@ -75,21 +82,20 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className={`mt-4 py-2 rounded-md ${
-              loading
+            className={`mt-4 py-2 rounded-md ${loading
                 ? "bg-zinc-600"
                 : "bg-red-700 hover:bg-red-800"
-            }`}
+              }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
         <span
-              onClick={() => navigate("/signup")}
-              className="text-xs cursor-pointer text-red-500 hover:text-red-700"
-            >
-              new here? register now
-            </span>
+          onClick={() => navigate("/signup")}
+          className="text-xs cursor-pointer text-red-500 hover:text-red-700"
+        >
+          new here? register now
+        </span>
       </div>
     </div>
   );
