@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import adminApi from "../../api/adminApi";
+import Dashboard from "../../components/Dashboard";
 
 function AdminDashboard() {
   const [jobs, setJobs] = useState([]);
@@ -133,6 +134,7 @@ function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white p-4 md:p-6">
+      <Dashboard/>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 md:gap-0">
         <h1 className="text-3xl md:text-4xl font-bold">Admin Dashboard</h1>
         <a href="/admin/profile" className="text-red-500 underline">
