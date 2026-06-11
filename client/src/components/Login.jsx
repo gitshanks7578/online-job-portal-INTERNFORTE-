@@ -95,9 +95,7 @@ function Login() {
           <span onClick={() => navigate("/signup")} className="soft-link">
             New here? Register now
           </span>
-          <span onClick={() => navigate("/verify")} className="soft-link text-slate-400">
-            Forgot password?
-          </span>
+          
         </div>
       </div>
     </div>
