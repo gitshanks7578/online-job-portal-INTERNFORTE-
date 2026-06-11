@@ -1,10 +1,218 @@
 
 @import "tailwindcss";
-*{
+
+* {
   box-sizing: border-box;
 }
 
-/* body{
-  background-color: black;
+html {
+  background: #0f1117;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(239, 68, 68, 0.14), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.12), transparent 30rem),
+    #0f1117;
+  color: #f8fafc;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+[role="button"] {
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+button:hover,
+a:hover,
+[role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+.app-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(15, 17, 23, 0.96), rgba(24, 24, 27, 0.9)),
+    radial-gradient(circle at 80% 10%, rgba(244, 63, 94, 0.12), transparent 24rem);
+  color: #f8fafc;
+}
+
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 20% 16%, rgba(239, 68, 68, 0.18), transparent 22rem),
+    radial-gradient(circle at 76% 82%, rgba(45, 212, 191, 0.1), transparent 20rem),
+    #0f1117;
+}
+
+.brand-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.035);
+  font-size: clamp(4.5rem, 19vw, 16rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.auth-card,
+.panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(24, 24, 27, 0.78);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 27rem);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+}
+
+.section-wrap {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.panel {
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+}
+
+.field-label {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 0.9rem;
+  background: rgba(15, 23, 42, 0.64);
+  color: #f8fafc;
+  outline: none;
+}
+
+.form-input,
+.form-select {
+  min-height: 2.85rem;
+  padding: 0.72rem 0.9rem;
+}
+
+.form-textarea {
+  min-height: 7rem;
+  padding: 0.9rem;
+  resize: vertical;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #64748b;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: rgba(248, 113, 113, 0.8);
+  box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.1);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-ghost {
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ef4444, #fb7185);
   color: white;
-} */
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.22);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 16px 36px rgba(239, 68, 68, 0.28);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.07);
+  color: #e2e8f0;
+}
+
+.btn-danger {
+  background: rgba(220, 38, 38, 0.18);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.28);
+}
+
+.btn-ghost {
+  color: #f87171;
+}
+
+.soft-link {
+  color: #fb7185;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.empty-state {
+  border: 1px dashed rgba(148, 163, 184, 0.25);
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  color: #94a3b8;
+  text-align: center;
+}

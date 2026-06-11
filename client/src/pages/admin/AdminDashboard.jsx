@@ -18,7 +18,6 @@ function AdminDashboard() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [applications, setApplications] = useState([]);
 
-
   const fetchJobs = async () => {
     setLoading(true);
     try {
@@ -35,7 +34,6 @@ function AdminDashboard() {
     fetchJobs();
   }, []);
 
-  
   const openJobForm = (job = null) => {
     if (job) {
       setJobFormData({
@@ -84,7 +82,6 @@ function AdminDashboard() {
     }
   };
 
-
   const handleDelete = async (jobId) => {
     if (!window.confirm("Delete this job?")) return;
     try {
@@ -120,7 +117,6 @@ function AdminDashboard() {
     }
   };
 
- 
   const updateApplicationStatus = async (appId, status) => {
     try {
       await adminApi.patch(`/applications/${appId}/status`, { status });
@@ -133,233 +129,230 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-4 md:p-6">
-      <Dashboard/>
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 md:gap-0">
-        <h1 className="text-3xl md:text-4xl font-bold">Admin Dashboard</h1>
-        <a href="/admin/profile" className="text-red-500 underline">
-          View Profile
-        </a>
-      </div>
+    <div className="app-shell">
+      <main className="section-wrap">
+        <Dashboard />
 
-      {!selectedJob ? (
-        <>
-          <button
-            onClick={() => openJobForm()}
-            className="bg-red-700 px-4 py-2 rounded mb-4"
-          >
-            Create Job
-          </button>
+        <section className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="badge mb-3">Employer dashboard</p>
+            <h1 className="text-4xl font-bold text-white">Manage roles</h1>
+            <p className="mt-2 max-w-2xl text-slate-400">
+              Create listings, review applications, and keep every role status clear.
+            </p>
+          </div>
+          <a href="/admin/profile" className="btn-secondary">
+            View profile
+          </a>
+        </section>
 
-          {loading ? (
-            <p>Loading...</p>
-          ) : jobs.length === 0 ? (
-            <p>No jobs found.</p>
-          ) : (
-            <div className="flex flex-col gap-4">
-              {jobs.map((job) => (
-                <div
-                  key={job._id}
-                  className="bg-zinc-800 p-4 rounded flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-0"
-                >
-                  <div className="flex flex-col md:flex-row md:gap-6">
-                    <div>
-                      <h3 className="text-xl font-semibold">{job.title}</h3>
-                      <p className="text-zinc-400">{job.location}</p>
-                      <p className="text-zinc-400">Status: {job.status}</p>
+        {!selectedJob ? (
+          <>
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <h2 className="text-2xl font-bold text-white">Your jobs</h2>
+              <button onClick={() => openJobForm()} className="btn-primary">
+                Create job
+              </button>
+            </div>
+
+            {loading ? (
+              <div className="empty-state">Loading jobs...</div>
+            ) : jobs.length === 0 ? (
+              <div className="empty-state">No jobs found.</div>
+            ) : (
+              <div className="grid gap-4">
+                {jobs.map((job) => (
+                  <article key={job._id} className="panel">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                      <div>
+                        <div className="mb-3 flex flex-wrap gap-2">
+                          <span className="badge">{job.status}</span>
+                          {job.jobType && <span className="badge">{job.jobType}</span>}
+                        </div>
+                        <h3 className="text-xl font-bold text-white">{job.title}</h3>
+                        <p className="mt-1 text-slate-400">{job.location}</p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        <button onClick={() => toggleStatus(job)} className="btn-secondary">
+                          Toggle status
+                        </button>
+                        <button onClick={() => openJobForm(job)} className="btn-secondary">
+                          Edit
+                        </button>
+                        <button onClick={() => handleDelete(job._id)} className="btn-danger">
+                          Delete
+                        </button>
+                        <button onClick={() => fetchApplications(job)} className="btn-primary">
+                          View applications
+                        </button>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mt-2 md:mt-0">
-                    <button
-                      onClick={() => toggleStatus(job)}
-                      className="bg-red-700 px-3 py-1 rounded text-sm"
-                    >
-                      Toggle Status
-                    </button>
-                    <button
-                      onClick={() => openJobForm(job)}
-                      className="bg-zinc-700 px-3 py-1 rounded text-sm"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(job._id)}
-                      className="bg-zinc-700 px-3 py-1 rounded text-sm"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => fetchApplications(job)}
-                      className="bg-red-700 px-3 py-1 rounded text-sm"
-                    >
-                      View Applications
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          <button
-            onClick={() => {
-              setSelectedJob(null);
-              setApplications([]);
-            }}
-            className="mb-4 bg-zinc-700 px-4 py-2 rounded"
-          >
-            ← Back to Jobs
-          </button>
-
-          <h2 className="text-2xl mb-4">{selectedJob.title} — Applications</h2>
-
-          {loading ? (
-            <p>Loading...</p>
-          ) : applications.length === 0 ? (
-            <p>No applications yet.</p>
-          ) : (
-            <div className="flex flex-col gap-4">
-              {applications.map((app) => (
-                <div
-                  key={app._id}
-                  className="bg-zinc-800 p-4 rounded flex flex-col gap-2"
-                >
-                  <p>
-                    <strong>Name:</strong> {app.userId?.name}
-                  </p>
-                  <p>
-                    <strong>Email:</strong> {app.userId?.email}
-                  </p>
-                  <p>
-                    <strong>Status:</strong>{" "}
-                    <span className="text-red-400">{app.status}</span>
-                  </p>
-                  {app.resume && (
-                    <a
-                      href={app.resume}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-red-500 underline"
-                    >
-                      View Resume
-                    </a>
-                  )}
-
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <button
-                      onClick={() => updateApplicationStatus(app._id, "accepted")}
-                      className="bg-green-700 px-3 py-1 rounded text-sm"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => updateApplicationStatus(app._id, "rejected")}
-                      className="bg-red-700 px-3 py-1 rounded text-sm"
-                    >
-                      Reject
-                    </button>
-                    <button
-                      onClick={() => updateApplicationStatus(app._id, "pending")}
-                      className="bg-zinc-700 px-3 py-1 rounded text-sm"
-                    >
-                      Pending
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </>
-      )}
-
-    {/* job form  */}
-      {showJobForm && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <form
-            onSubmit={handleJobFormSubmit}
-            className="bg-zinc-800 p-6 rounded w-full max-w-md space-y-3"
-          >
-            <input
-              placeholder="Title"
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.title}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, title: e.target.value })
-              }
-              required
-            />
-            <input
-              placeholder="Location"
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.location}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, location: e.target.value })
-              }
-              required
-            />
-            <select
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.jobType}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, jobType: e.target.value })
-              }
-              required
+                  </article>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                setSelectedJob(null);
+                setApplications([]);
+              }}
+              className="btn-secondary mb-5"
             >
-              <option value="">Select Job Type</option>
-              <option value="full-time">Full-time</option>
-              <option value="part-time">Part-time</option>
-              <option value="internship">Internship</option>
-              <option value="contract">Contract</option>
-            </select>
-            <input
-              type="date"
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.deadline}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, deadline: e.target.value })
-              }
-              required
-            />
-            <textarea
-              placeholder="Description"
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.description}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, description: e.target.value })
-              }
-              required
-            />
-            <textarea
-              placeholder="Requirements"
-              className="w-full p-2 bg-zinc-900 rounded"
-              value={jobFormData.requirements}
-              onChange={(e) =>
-                setJobFormData({ ...jobFormData, requirements: e.target.value })
-              }
-            />
-            <div className="flex flex-col sm:flex-row justify-end gap-2 mt-2">
-              <button
-                type="button"
-                onClick={() => setShowJobForm(false)}
-                className="bg-zinc-700 px-4 py-2 rounded w-full sm:w-auto"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-red-700 px-4 py-2 rounded w-full sm:w-auto"
-              >
-                {editingJobId ? "Update" : "Create"}
-              </button>
+              Back to jobs
+            </button>
+
+            <div className="mb-5">
+              <p className="badge mb-3">Applications</p>
+              <h2 className="text-3xl font-bold text-white">{selectedJob.title}</h2>
             </div>
-          </form>
-        </div>
-      )}
+
+            {loading ? (
+              <div className="empty-state">Loading applications...</div>
+            ) : applications.length === 0 ? (
+              <div className="empty-state">No applications yet.</div>
+            ) : (
+              <div className="grid gap-4">
+                {applications.map((app) => (
+                  <article key={app._id} className="panel">
+                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                      <div>
+                        <h3 className="text-lg font-bold text-white">
+                          {app.userId?.name || "Applicant"}
+                        </h3>
+                        <p className="text-slate-400">{app.userId?.email}</p>
+                        <p className="mt-2">
+                          <span className="badge">{app.status}</span>
+                        </p>
+                        {app.resume && (
+                          <a
+                            href={app.resume}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="soft-link mt-3 inline-flex"
+                          >
+                            View resume
+                          </a>
+                        )}
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => updateApplicationStatus(app._id, "accepted")}
+                          className="btn-secondary"
+                        >
+                          Accept
+                        </button>
+                        <button
+                          onClick={() => updateApplicationStatus(app._id, "rejected")}
+                          className="btn-danger"
+                        >
+                          Reject
+                        </button>
+                        <button
+                          onClick={() => updateApplicationStatus(app._id, "pending")}
+                          className="btn-secondary"
+                        >
+                          Pending
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {showJobForm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4">
+            <form onSubmit={handleJobFormSubmit} className="panel w-full max-w-xl space-y-3">
+              <div className="mb-4">
+                <p className="badge mb-3">{editingJobId ? "Edit job" : "New job"}</p>
+                <h2 className="text-2xl font-bold text-white">
+                  {editingJobId ? "Update listing" : "Create listing"}
+                </h2>
+              </div>
+
+              <input
+                placeholder="Title"
+                className="form-input"
+                value={jobFormData.title}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, title: e.target.value })
+                }
+                required
+              />
+              <input
+                placeholder="Location"
+                className="form-input"
+                value={jobFormData.location}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, location: e.target.value })
+                }
+                required
+              />
+              <select
+                className="form-select"
+                value={jobFormData.jobType}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, jobType: e.target.value })
+                }
+                required
+              >
+                <option value="">Select job type</option>
+                <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
+                <option value="internship">Internship</option>
+                <option value="contract">Contract</option>
+              </select>
+              <input
+                type="date"
+                className="form-input"
+                value={jobFormData.deadline}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, deadline: e.target.value })
+                }
+                required
+              />
+              <textarea
+                placeholder="Description"
+                className="form-textarea"
+                value={jobFormData.description}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, description: e.target.value })
+                }
+                required
+              />
+              <textarea
+                placeholder="Requirements"
+                className="form-textarea"
+                value={jobFormData.requirements}
+                onChange={(e) =>
+                  setJobFormData({ ...jobFormData, requirements: e.target.value })
+                }
+              />
+              <div className="grid gap-3 pt-2 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setShowJobForm(false)}
+                  className="btn-secondary"
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary">
+                  {editingJobId ? "Update" : "Create"}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
 
 export default AdminDashboard;
-

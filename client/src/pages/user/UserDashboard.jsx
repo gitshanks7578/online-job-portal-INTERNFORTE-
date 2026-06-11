@@ -9,12 +9,10 @@ function UserDashboard() {
   const [loadingApps, setLoadingApps] = useState(false);
   const [error, setError] = useState("");
 
-  // Filter states
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   const [jobType, setJobType] = useState("");
 
-  // Fetch all jobs
   const fetchJobs = async () => {
     setLoadingJobs(true);
     try {
@@ -28,7 +26,6 @@ function UserDashboard() {
     }
   };
 
-  // Fetch my applications
   const fetchApplications = async () => {
     setLoadingApps(true);
     try {
@@ -42,12 +39,11 @@ function UserDashboard() {
     }
   };
 
-  // Apply for a job
   const handleApply = async (jobId) => {
     try {
       await userApi.post(`/jobs/${jobId}/apply`);
       alert("Applied successfully");
-      fetchApplications(); // refresh applications
+      fetchApplications();
     } catch (err) {
       alert("Already applied or error applying");
       console.error(err);
@@ -59,7 +55,6 @@ function UserDashboard() {
     fetchApplications();
   }, []);
 
-  // Frontend filtering
   const filteredJobs = jobs.filter((job) => {
     const matchKeyword = keyword
       ? job.title.toLowerCase().includes(keyword.toLowerCase())
@@ -72,110 +67,122 @@ function UserDashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-6">
-      {/* Header */}
-      <Dashboard/>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-4xl font-bold">User Dashboard</h1>
-        <a href="/user/profile" className="text-red-500 underline">
-          View Profile
-        </a>
-      </div>
+    <div className="app-shell">
+      <main className="section-wrap">
+        <Dashboard />
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+        <section className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="badge mb-3">Employee dashboard</p>
+            <h1 className="text-4xl font-bold text-white">Find your next role</h1>
+            <p className="mt-2 max-w-2xl text-slate-400">
+              Browse open positions, filter quickly, and track your applications.
+            </p>
+          </div>
+          <a href="/user/profile" className="btn-secondary">
+            View profile
+          </a>
+        </section>
 
-      {/* Filters */}
-      <section className="mb-6 flex gap-3 flex-wrap">
-        <input
-          type="text"
-          placeholder="Search title..."
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          className="p-2 rounded bg-zinc-800"
-        />
-        <input
-          type="text"
-          placeholder="Location..."
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="p-2 rounded bg-zinc-800"
-        />
-        <select
-          value={jobType}
-          onChange={(e) => setJobType(e.target.value)}
-          className="p-2 rounded bg-zinc-800"
-        >
-          <option value="">All Types</option>
-          <option value="full-time">Full Time</option>
-          <option value="part-time">Part Time</option>
-          <option value="internship">Internship</option>
-          <option value="contract">Contract</option>
-        </select>
-      </section>
+        {error && (
+          <div className="mb-6 rounded-2xl border border-red-400/20 bg-red-500/10 p-4 text-red-200">
+            {error}
+          </div>
+        )}
 
-      {/* JOB LIST */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Available Jobs</h2>
+        <section className="panel mb-8">
+          <div className="grid gap-3 md:grid-cols-3">
+            <input
+              type="text"
+              placeholder="Search title"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="form-input"
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="form-input"
+            />
+            <select
+              value={jobType}
+              onChange={(e) => setJobType(e.target.value)}
+              className="form-select"
+            >
+              <option value="">All types</option>
+              <option value="full-time">Full Time</option>
+              <option value="part-time">Part Time</option>
+              <option value="internship">Internship</option>
+              <option value="contract">Contract</option>
+            </select>
+          </div>
+        </section>
 
-        {loadingJobs ? (
-          <p>Loading jobs...</p>
-        ) : filteredJobs.length === 0 ? (
-          <p>No jobs available</p>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {filteredJobs.map((job) => (
-              <div
-                key={job._id}
-                className="bg-zinc-800 p-4 rounded-md flex justify-between items-center"
-              >
-                <div>
-                  <h3 className="text-xl font-semibold">{job.title}</h3>
-                  <p className="text-zinc-400">{job.location}</p>
-                  <p className="text-zinc-400 capitalize">
-                    {job.jobType} • {job.status}
+        <section className="mb-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-white">Available jobs</h2>
+            <span className="badge">{filteredJobs.length} open</span>
+          </div>
+
+          {loadingJobs ? (
+            <div className="empty-state">Loading jobs...</div>
+          ) : filteredJobs.length === 0 ? (
+            <div className="empty-state">No jobs available</div>
+          ) : (
+            <div className="grid gap-4">
+              {filteredJobs.map((job) => (
+                <article key={job._id} className="panel">
+                  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <div className="mb-3 flex flex-wrap gap-2">
+                        <span className="badge">{job.jobType}</span>
+                        <span className="badge">{job.status}</span>
+                      </div>
+                      <h3 className="text-xl font-bold text-white">{job.title}</h3>
+                      <p className="mt-1 text-slate-400">{job.location}</p>
+                    </div>
+                    <button
+                      onClick={() => handleApply(job._id)}
+                      disabled={job.status !== "open"}
+                      className={`btn-primary md:min-w-32 ${
+                        job.status !== "open" ? "cursor-not-allowed opacity-50" : ""
+                      }`}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-white">My applications</h2>
+            <span className="badge">{applications.length} total</span>
+          </div>
+
+          {loadingApps ? (
+            <div className="empty-state">Loading applications...</div>
+          ) : applications.length === 0 ? (
+            <div className="empty-state">No applications yet</div>
+          ) : (
+            <div className="grid gap-3">
+              {applications.map((app) => (
+                <article key={app._id} className="panel">
+                  <h3 className="font-bold text-white">{app.jobId?.title || "Job"}</h3>
+                  <p className="mt-2 text-slate-400">
+                    Status: <span className="capitalize text-slate-200">{app.status}</span>
                   </p>
-                </div>
-                <button
-                  onClick={() => handleApply(job._id)}
-                  disabled={job.status !== "open"}
-                  className={`px-4 py-2 rounded-md ${
-                    job.status === "open"
-                      ? "bg-red-700 hover:bg-red-800"
-                      : "bg-zinc-700 cursor-not-allowed"
-                  }`}
-                >
-                  Apply
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* APPLICATIONS */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-4">My Applications</h2>
-
-        {loadingApps ? (
-          <p>Loading applications...</p>
-        ) : applications.length === 0 ? (
-          <p>No applications yet</p>
-        ) : (
-          <div className="flex flex-col gap-3">
-            {applications.map((app) => (
-              <div key={app._id} className="bg-zinc-800 p-4 rounded-md">
-                <h3 className="font-semibold">
-                  {app.jobId?.title || "Job"}
-                </h3>
-                <p className="text-zinc-400">
-                  Status:{" "}
-                  <span className="capitalize">{app.status}</span>
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      </main>
     </div>
   );
 }

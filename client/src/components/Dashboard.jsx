@@ -1,101 +1,3 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
-// function Dashboard() {
-//   const navigate = useNavigate();
-//   const [showConfirm, setShowConfirm] = useState(false); // modal visibility
-
-//   const handleLogout = async () => {
-//     try {
-//       const res = await axios.post(
-//         `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/logout`,
-//         {},
-//         { withCredentials: true }
-//       );
-//       if (res.data.success) {
-//         localStorage.removeItem("token");
-//         navigate("/login");
-//       }
-//     } catch (error) {
-//       console.log("something went wrong logging out", error.message);
-//     }
-//   };
-
-//   const handleDelete = async () => {
-//     try {
-//       const res = await axios.post(
-//         `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/removeUser`,{},
-//         { withCredentials: true }
-//       );
-//       if (res.data.success) {
-//         localStorage.removeItem("token");
-//         navigate("/signup"); // redirect after account deletion
-//       }
-//     } catch (error) {
-//       console.log("something went wrong deleting account", error.message);
-//     } finally {
-//       setShowConfirm(false); // close modal
-//     }
-//   };
-
-//   return (
-//     <div className="w-full mb-10 bg-zinc-950 text-white flex flex-col relative">
-//       {/* Header */}
-//       <header className="flex justify-between items-center w-full px-6 py-4 border-b border-zinc-800">
-//         <h1 className="text-2xl font-bold tracking-wider text-zinc-300">
-//           NEXORA
-//         </h1>
-
-//         <div className="flex gap-3">
-//           <button
-//             onClick={handleLogout}
-//             className="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-md text-sm font-medium text-zinc-300 ease-in duration-100"
-//           >
-//             Logout
-//           </button>
-//           <button
-//             onClick={() => setShowConfirm(true)}
-//             className="bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-sm font-medium text-white ease-in duration-100"
-//           >
-//             Delete Account
-//           </button>
-//         </div>
-//       </header>
-
-      
-
-//       {/* Confirmation Modal */}
-//       {showConfirm && (
-//         <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-//           <div className="bg-zinc-900 rounded-lg p-6 w-80 text-center flex flex-col gap-4">
-//             <p className="text-white text-lg font-semibold">
-//               Are you sure you want to delete your account?
-//             </p>
-//             <div className="flex justify-between gap-3 mt-4">
-//               <button
-//                 onClick={() => setShowConfirm(false)}
-//                 className="flex-1 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-md text-white font-medium"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 onClick={handleDelete}
-//                 className="flex-1 bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-white font-medium"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Dashboard;
-
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -106,19 +8,15 @@ function Dashboard() {
 
   const accessToken = localStorage.getItem("accessToken");
 
-  // single source of truth for clearing auth
   const clearAuthStorage = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("token");
     localStorage.removeItem("role");
   };
 
-  // shared axios config
   const authConfig = {
     withCredentials: true,
-    headers: accessToken
-      ? { Authorization: `Bearer ${accessToken}` }
-      : {},
+    headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
   };
 
   const handleLogout = async () => {
@@ -126,7 +24,7 @@ function Dashboard() {
       const res = await axios.post(
         `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/logout`,
         {},
-        authConfig
+        authConfig,
       );
 
       if (res.data.success) {
@@ -143,7 +41,7 @@ function Dashboard() {
       const res = await axios.post(
         `${import.meta.env.VITE_AXIOS_BASE_URL}/auth/removeUser`,
         {},
-        authConfig
+        authConfig,
       );
 
       if (res.data.success) {
@@ -158,51 +56,36 @@ function Dashboard() {
   };
 
   return (
-    <div className="w-full mb-10 bg-zinc-950 text-white flex flex-col relative">
+    <div className="mb-8">
+      <header className="panel flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="badge mb-2">NEXORA</p>
+          <h1 className="text-2xl font-bold text-white">Workspace</h1>
+        </div>
 
-      {/* Header */}
-      <header className="flex justify-between items-center w-full px-6 py-4 border-b border-zinc-800">
-        <h1 className="text-2xl font-bold tracking-wider text-zinc-300">
-          NEXORA
-        </h1>
-
-        <div className="flex gap-3">
-          <button
-            onClick={handleLogout}
-            className="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-md text-sm font-medium text-zinc-300"
-          >
+        <div className="flex flex-wrap gap-3">
+          <button onClick={handleLogout} className="btn-secondary">
             Logout
           </button>
-
-          <button
-            onClick={() => setShowConfirm(true)}
-            className="bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-sm font-medium text-white"
-          >
-            Delete Account
+          <button onClick={() => setShowConfirm(true)} className="btn-danger">
+            Delete account
           </button>
         </div>
       </header>
 
-      {/* Confirmation Modal */}
       {showConfirm && (
-        <div className="h-screen absolute inset-0 bg-black/60 flex items-center justify-center">
-          <div className="bg-zinc-900 rounded-lg p-6 w-80 text-center flex flex-col gap-4">
-            <p className="text-white text-lg font-semibold">
-              Are you sure you want to delete your account?
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="panel w-full max-w-sm text-center">
+            <h2 className="text-xl font-bold text-white">Delete account?</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              This will remove your account and related data.
             </p>
 
-            <div className="flex justify-between gap-3 mt-4">
-              <button
-                onClick={() => setShowConfirm(false)}
-                className="flex-1 bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-md text-white"
-              >
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <button onClick={() => setShowConfirm(false)} className="btn-secondary">
                 Cancel
               </button>
-
-              <button
-                onClick={handleDelete}
-                className="flex-1 bg-red-700 hover:bg-red-800 px-4 py-2 rounded-md text-white"
-              >
+              <button onClick={handleDelete} className="btn-danger">
                 Delete
               </button>
             </div>

@@ -53,27 +53,31 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 flex justify-center items-center text-white">
-      <div className="bg-zinc-800 p-6 rounded-xl w-[360px]">
-        <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
-        <p className="text-sm text-zinc-400 mb-4">
-          Sign in to your account
-        </p>
+    <div className="auth-page">
+      <div className="brand-watermark">NEXORA</div>
+      <div className="auth-card">
+        <div className="mb-6">
+          <p className="badge mb-4">Job Portal</p>
+          <h1 className="text-3xl font-bold text-white">Welcome back</h1>
+          <p className="mt-2 text-sm text-slate-400">Sign in to continue your hiring journey.</p>
+        </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <label className="field-label">Email</label>
           <input
             type="email"
             placeholder="Email"
-            className="p-2 rounded-md bg-zinc-900 border border-zinc-700"
+            className="form-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
+          <label className="field-label mt-1">Password</label>
           <input
             type="password"
             placeholder="Password"
-            className="p-2 rounded-md bg-zinc-900 border border-zinc-700"
+            className="form-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -82,27 +86,19 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className={`mt-4 py-2 rounded-md ${loading
-                ? "bg-zinc-600"
-                : "bg-red-700 hover:bg-red-800"
-              }`}
+            className={`btn-primary mt-4 w-full ${loading ? "opacity-70" : ""}`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <span
-          onClick={() => navigate("/signup")}
-          className="text-xs cursor-pointer text-red-500 hover:text-red-700"
-        >
-          new here? register now
-        </span>
-        <br />
-         <span
-          onClick={() => navigate("/verify")}
-          className="text-xs cursor-pointer text-red-500 hover:text-red-700"
-        >
-          forgot password?
-        </span>
+        <div className="mt-5 flex flex-col gap-2">
+          <span onClick={() => navigate("/signup")} className="soft-link">
+            New here? Register now
+          </span>
+          <span onClick={() => navigate("/verify")} className="soft-link text-slate-400">
+            Forgot password?
+          </span>
+        </div>
       </div>
     </div>
   );
