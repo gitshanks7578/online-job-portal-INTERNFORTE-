@@ -9,7 +9,6 @@ A full-stack job portal that connects recruiters and job seekers in one role-bas
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-FF6B35?style=for-the-badge)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![Role Based Access](https://img.shields.io/badge/RBAC-8B5CF6?style=for-the-badge)
 
 A full-stack job portal that connects recruiters and job seekers in one role-based platform.
 
