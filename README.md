@@ -12,6 +12,8 @@ A full-stack job portal that connects recruiters and job seekers in one role-bas
 
 A full-stack job portal that connects recruiters and job seekers in one role-based platform.
 
+LIVE LINK : https://online-job-portal-internforte-1-client.onrender.com/login
+
 ## Problem It Solves
 
 Hiring workflows are often scattered across messages, spreadsheets, and manual tracking. This project provides a simple system where recruiters can post jobs and review applications, while candidates can discover open roles, apply, and track their application status.
